@@ -30,5 +30,8 @@ print ('IP:'+ip)
 hostname = raspi.getHostName()
 print ('Hostname:' + hostname )
 
-print('Reboot!')
-raspi.reboot()
+# print('Reboot!')
+# raspi.reboot()
+
+ipPublica = getPublicIP()
+print('IP Pública: ' + ipPublica)
