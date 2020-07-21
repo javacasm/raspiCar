@@ -8,14 +8,12 @@
     Telegram stuff: original @inopya https://github.com/inopya/mini-tierra
 """
 
-
-
 import logging
 import telegram
 from telegram import ReplyKeyboardMarkup
 from telegram.error import NetworkError, Unauthorized
 import requests
-import time # The time library is useful for delays
+import time 
 import os
 
 import sys
@@ -25,7 +23,7 @@ import TelegramBase
 import camara
 import raspi
 
-v = '1.1.3'
+v = '1.2.0'
 
 botName = 'raspiCarBot'
 
@@ -143,7 +141,11 @@ def main():
                 utils.myLog('BotTest')
                 last_Beat = now
             updateBot(bot)
-        except NetworkError:
+        if bReboot:
+           sendMsg2Admin('Reboot in 10 seconds!!!')
+           time.sleep(10)
+           raspi.reboot()
+       except NetworkError:
             time.sleep(0.1)
         except Unauthorized:
             # The user has removed or blocked the bot.
@@ -169,6 +171,8 @@ def getTimeLapseStr():
             answer =  'Periodo entre imagenes: ' + str(time_between_picture) + ' milisegundos'
     return answer
 
+bReboot = False
+
 # Update and chat with the bot
 def updateBot(bot):
     """Answer the message the user sent."""
@@ -177,9 +181,11 @@ def updateBot(bot):
     global time_between_picture
     global welcomeMsg
     global nightMode
+    global bReboot
 
     #utils.myLog('Updating telegramBot')
     # Request updates after the last update_id
+
     for update in bot.get_updates(offset=update_id, timeout=10):
         update_id = update.update_id + 1
 
@@ -265,10 +271,10 @@ def updateBot(bot):
                 utils.myLog(answer)
                 update.message.reply_text(answer,parse_mode=telegram.ParseMode.MARKDOWN,reply_markup = user_keyboard_markup)
             elif comando == cmdReboot:
-                answer = 'Reboot!!!'
+                answer = 'Reboot in 10 seconds!!!'
                 utils.myLog(answer)
                 update.message.reply_text(answer,parse_mode=telegram.ParseMode.MARKDOWN,reply_markup = user_keyboard_markup)
-                raspi.reboot()
+                bReboot = True
             else:
                 update.message.reply_text('echobot: '+update.message.text, reply_markup=user_keyboard_markup)                
 
