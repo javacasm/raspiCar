@@ -8,7 +8,7 @@
 
 import raspi
 
-v = '0.3'
+v = '0.4'
 
 raspi.init()
 
@@ -23,3 +23,12 @@ print('Throtted: ' + throttled)
 df = raspi.getDiskUsed()
 
 print('Disk Used: ' + df)
+
+ip = raspi.getIP()
+print ('IP:'+ip)
+
+hostname = raspi.getHostName()
+print ('Hostname:' + hostname )
+
+print('Reboot!')
+raspi.reboot()
