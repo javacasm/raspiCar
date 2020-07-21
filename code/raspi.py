@@ -6,11 +6,11 @@
 """
 import os
 import subprocess
-
+import socket
 import utils
 import config
 
-v = '0.7'
+v = '0.8'
 
 # https://www.raspberrypi.org/documentation/raspbian/applications/vcgencmd.md
 
@@ -54,3 +54,25 @@ def getDiskUsed():
     df = strDF.split()
     strResult = '{} of {} free {} ocupied'.format(df[3],df[1],df[4])
     return strResult
+
+# https://www.tutorialspoint.com/python-program-to-find-the-ip-address-of-the-client
+def getHostName():
+    hostname = socket.gethostname()
+    utils.myLog(f"Hostname: {hostname}")
+    return hostname
+    
+def getIP():
+    hostname = socket.gethostname()
+    ip_address = socket.gethostbyname(hostname)
+    utils.myLog(f"IP Address: {ip_address}")
+    return ip_address
+
+def halt():
+    utils.myLog("Shutdown! bye!")
+    os.system("sudo shutdown -h now")
+    
+def reboot():
+    utils.myLog("Shutdown! bye!")
+    os.system("sudo reboot -f now")
+    
+    
