@@ -7,8 +7,12 @@
  """
 
 
-import camara
+import os
+from os import path
 from time import sleep
+
+import config
+import camara
 
 camera = camara.initCamera() # creamos el objeto camara
 
@@ -25,14 +29,25 @@ def testImage():
     for i in range(1, 3):
         camara.addDate()
         camara.getImage()
-        sleep(5)
+        sleep(1)
 
 def testImageNight():
     for i in range(1, 3):
         camara.addDateNight()
         camara.getImageNight()
-        sleep(5)
+        sleep(1)
 
 
+if not os.path.exists(config.ImagesDirectory):
+     os.mkdir(config.ImagesDirectory)
+
+
+print('Testing image')
+testImage()
+
+print('Testing ISO')
+testISO()
+
+print('Testing night image')
 testImageNight()
 
