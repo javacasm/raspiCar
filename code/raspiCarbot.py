@@ -23,7 +23,7 @@ import TelegramBase
 import camara
 import raspi
 
-v = '1.2.0'
+v = '1.2.1'
 
 botName = 'raspiCarBot'
 
@@ -110,7 +110,7 @@ def main():
     global time_between_picture
     global camera
     global nightMode
-
+    global bReboot
 
     init()
 
@@ -141,11 +141,12 @@ def main():
                 utils.myLog('BotTest')
                 last_Beat = now
             updateBot(bot)
-        if bReboot:
-           sendMsg2Admin('Reboot in 10 seconds!!!')
-           time.sleep(10)
-           raspi.reboot()
-       except NetworkError:
+            if bReboot:
+                bReboot = False
+                sendMsg2Admin('Reboot in 10 seconds!!!')
+                # time.sleep(10)
+                # raspi.reboot()
+        except NetworkError:
             time.sleep(0.1)
         except Unauthorized:
             # The user has removed or blocked the bot.
