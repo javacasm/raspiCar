@@ -28,7 +28,7 @@ v1|       |2v
 v = '0.3'
 
 # niveles de movimiento, la velocidad depende del voltaje
-throttle_max = 0
+throttle_max = 1
 throttle_med = 0.5
 throttle_min = 0.3
 throttle_stop = 0
