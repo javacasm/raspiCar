@@ -12,11 +12,12 @@ import config
 import os
 import urllib.request
 
-v = '0.8'
+v = '0.9'
 
 # https://www.raspberrypi.org/documentation/raspbian/applications/vcgencmd.md
 
 cmdGetTrottled = ['/opt/vc/bin/vcgencmd', 'get_throttled'] 
+cmdCameraStatus = ['/opt/vc/bin/vcgencmd', 'get_camera']
 cmdGetTemp = ['/opt/vc/bin/vcgencmd', 'measure_temp']
 cmdDF = ['df -H | grep ', 'root ']
 
@@ -81,6 +82,14 @@ def reboot():
 # https://stackoverflow.com/questions/2792650/import-error-no-module-name-urllib2
 def getPublicIP():
     fqn = os.uname()[1]
-    ext_ip = urllib.request.urlopen('http://whatismyip.org').read()
+    ext_ip = urllib.request.urlopen('https://www.whatismyip.org/').read()
     utils.myLog("Host: %s " % fqn, " IP extena: %s " % ext_ip)
     return ext_ip
+
+def camaraStatus():
+    camaraStatus = executeCommand(cmdCameraStatus[0] + ' ' + cmdCameraStatus[1])
+    return  camaraStatus
+
+
+
+
