@@ -33,5 +33,8 @@ print ('Hostname:' + hostname )
 # print('Reboot!')
 # raspi.reboot()
 
-ipPublica = getPublicIP()
-print('IP Pública: ' + ipPublica)
+# ipPublica = raspi.getPublicIP()
+# print('IP Pública: ' + ipPublica)
+
+camaraStatus = raspi.camaraStatus()
+print('Camara Status: ' + camaraStatus)
