@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Simple Bot to reply to Telegram messages
+"""
+    Simple Bot to reply to Telegram messages
     take pictures and send to users
     Can take pictures in time lapse way
     Licencia CC by @javacasm
