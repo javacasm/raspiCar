@@ -1,6 +1,6 @@
 # raspiCar
 
-![Raspi Robot](./images/raspirobot.png)
+![Raspi Robot](./images/RobotTop.jpg)
 
 Robot móvil controlado con una Raspberry
 
