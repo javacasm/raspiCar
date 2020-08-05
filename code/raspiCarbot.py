@@ -14,7 +14,7 @@ import telegram
 from telegram import ReplyKeyboardMarkup
 from telegram.error import NetworkError, Unauthorized
 import requests
-import time 
+import time
 import os
 
 import sys
@@ -23,8 +23,9 @@ import utils
 import TelegramBase
 import camara
 import raspi
+import myBme280
 
-v = '1.2.1'
+v = '1.2.3'
 
 botName = 'raspiCarBot'
 
@@ -38,6 +39,7 @@ cmdReboot = '/reboot'
 cmdIP = '/ip'
 cmdHostname = '/host'
 cmdDF = '/df'
+cmdMeteo = '/meteo'
 
 cmdDayMode = '/day'
 cmdPhoto = '/photo'
@@ -47,7 +49,7 @@ cmdLastPhoto = '/last'
 cmdListPhotos = '/list'
 
 # 'keypad' buttons
-user_keyboard = [[cmdHelp, cmdInfo, cmdTemp, cmdReboot, cmdIP, cmdDF],[cmdDayMode,cmdPhoto ,cmdNightMode],[cmdNoLapse,cmdLastPhoto ,cmdListPhotos ]]
+user_keyboard = [[cmdHelp, cmdInfo, cmdTemp, cmdReboot, cmdIP, cmdDF, cmdMeteo],[cmdDayMode,cmdPhoto ,cmdNightMode],[cmdNoLapse,cmdLastPhoto ,cmdListPhotos ]]
 # user_keyboard_markup = ReplyKeyboardMarkup(user_keyboard, one_time_keyboard=True)
 user_keyboard_markup = ReplyKeyboardMarkup(user_keyboard)
 commandList = ''
@@ -272,13 +274,17 @@ def updateBot(bot):
                 answer = raspi.getIP()
                 utils.myLog(answer)
                 update.message.reply_text(answer,parse_mode=telegram.ParseMode.MARKDOWN,reply_markup = user_keyboard_markup)
+            elif comando == cmdMeteo:
+                answer = 'Meteo data: ' + myBme280.getStrData()
+                utils.myLog(answer)
+                update.message.reply_text(answer,parse_mode=telegram.ParseMode.MARKDOWN,reply_markup = user_keyboard_markup)
             elif comando == cmdReboot:
                 answer = 'Reboot in 10 seconds!!!'
                 utils.myLog(answer)
                 update.message.reply_text(answer,parse_mode=telegram.ParseMode.MARKDOWN,reply_markup = user_keyboard_markup)
                 bReboot = True
             else:
-                update.message.reply_text('echobot: '+update.message.text, reply_markup=user_keyboard_markup)                
+                update.message.reply_text('echobot: '+update.message.text, reply_markup=user_keyboard_markup)
 
 if __name__ == '__main__':
     main()
