@@ -14,6 +14,8 @@ from time import sleep
 import config
 import camara
 
+v = '0.9'
+
 camera = camara.initCamera() # creamos el objeto camara
 
 
@@ -23,7 +25,7 @@ def testISO():
         print(message)
         camara.addText(message)
         camara.setIso(iso)
-        camara.getImage()
+        camara.getImage(fileName = message+'.jpg')
 
 def testImage():
     for i in range(1, 3):
