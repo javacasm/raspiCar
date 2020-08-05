@@ -14,7 +14,7 @@ from fractions import Fraction
 import config
 import utils
 
-v = '1.0.4'
+v = '1.0.7'
 
 camera = None
 
@@ -101,14 +101,15 @@ def getImageNight():
     camera.iso = prevIso
     return imageFile
 
-def getImage( preview = False):
+def getImage( preview = False, fileName = None):
     global camera
     if preview :
         camera.start_preview() # muestra la previsualizacion
-        sleep(1) # espera 5 segundos
+        sleep(1) # espera 1 segundo
     now = datetime.now()
     date_time = now.strftime("%Y%m%d-%H%M%S")
-    fileName = 'image' + date_time + '.jpg'
+    if fileName == None:
+        fileName = 'image' + date_time + '.jpg'
     fullName = config.ImagesDirectory + fileName
     utils.myDebug("image - " + fullName)
     camera.capture(fullName) # guarda la imagen
