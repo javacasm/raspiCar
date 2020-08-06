@@ -20,7 +20,7 @@ import psutil
 import utils
 import config
 
-v = '1.0'
+v = '1.2'
 
 # https://www.raspberrypi.org/documentation/raspbian/applications/vcgencmd.md
 
@@ -37,7 +37,6 @@ def executeCommand(command):
     output = stream.read() 
     return output
 
-
 def executeProcess(command, arguments): 
     process = subprocess.Popen([command, arguments], 
                     stdout=subprocess.PIPE, 
@@ -46,11 +45,15 @@ def executeProcess(command, arguments):
     return stdout, stderr
 
 # https://gist.github.com/Sanix-Darker/8cbed2ff6f8eb108ce2c8c51acd2aa5a
+
 def checkPythonProcessRunning(pythonScript):
+    counter = 0
     for proc in psutil.process_iter():
         if pythonScript in proc.cmdline():
-           utils.myLog(pythonScript + ' está en ejecución')
-           return True
+           counter += 1
+           utils.myDebug('cmd: ' + str(proc.cmdline()))
+    utils.myLog(pythonScript + ' está en ejecución {} veces'.format(counter))
+    return counter
 
 def getTemp():
     # /opt/vc/bin/vcgencmd get_throttled
