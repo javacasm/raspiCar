@@ -4,7 +4,7 @@ Ejemplo de lectura de temperatura, presión y humedad con el sensor bme280
 Se requiere el módulo RPi.bme280
 
 Instalación:
-
+pip3 install smbus2
 pip3 install RPi.bme280
 """
 
@@ -13,7 +13,7 @@ import bme280
 
 import utils
 
-v = '0.5'
+v = '0.6'
 
 port = 1
 address = 0x76 # usaremos la dirección que hemos encontrado
