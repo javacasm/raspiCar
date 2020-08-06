@@ -4,9 +4,14 @@ Usamos psutil
 
 """
 
-v = '0.3'
+v = '0.4'
 
 import  raspi
+import utils
 
-raspi.checkPythonProcessRunning('raspiCarbot.py')
+cuantos = raspi.checkPythonProcessRunning('raspiCarbot.py')
+
+utils.myLog('Hay {} instancias'.format(cuantos))
+
+
 
