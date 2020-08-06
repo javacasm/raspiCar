@@ -25,9 +25,9 @@ import camara
 import raspi
 import myBme280
 
-v = '1.2.3'
+v = '1.2.7'
 
-botName = 'raspiCarBot'
+botName = 'raspiCarbot'
 
 cmdHi = 'hi'
 cmdStart = '/start'
@@ -65,7 +65,7 @@ camera = None
 
 time_between_picture = 0
 
-welcomeMsg = "Bienvenido al Bot de " +botName + ' '  + v
+welcomeMsg = "Bienvenido al Bot de " + botName + ' '  + v
 
 TIME2INITCAMERA = 2
 
@@ -114,6 +114,13 @@ def main():
     global camera
     global nightMode
     global bReboot
+
+    # check if the process is running yet
+
+    cuantasInstancias =  raspi.checkPythonProcessRunning(botName + '.py') 
+    if cuantasInstancias > 1:
+         utils.myLog(botName + ' ya en ejecución. Saliendo')
+         exit()
 
     init()
 
