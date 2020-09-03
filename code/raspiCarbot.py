@@ -16,8 +16,9 @@ from telegram.error import NetworkError, Unauthorized
 import requests
 import time
 import os
-
+import datetime
 import sys
+
 import config
 import utils
 import TelegramBase
@@ -25,7 +26,7 @@ import camara
 import raspi
 import myBme280
 
-v = '1.2.7'
+v = '1.2.9'
 
 botName = 'raspiCarbot'
 
@@ -93,7 +94,10 @@ def getImage():
              camara.addDateNight()
              imageFile = camara.getImageNight()
         else:
-             camara.addDate()
+             if datetime.datetime.now().hour >= 21:
+                 camara.addDateNight()
+             else:
+                 camara.addDate()
              imageFile = camara.getImage()
     if time_between_picture == 0 or time_between_picture > 10000:
         camera = camara.closeCamera()
