@@ -26,7 +26,7 @@ import camara
 import raspi
 import myBme280
 
-v = '1.2.9'
+v = '1.2.10'
 
 botName = 'raspiCarbot'
 
@@ -94,7 +94,7 @@ def getImage():
              camara.addDateNight()
              imageFile = camara.getImageNight()
         else:
-             if datetime.datetime.now().hour >= 21:
+             if datetime.datetime.now().hour >= 21 or datetime.datetime.now().hour <7:
                  camara.addDateNight()
              else:
                  camara.addDate()
